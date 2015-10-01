@@ -14,7 +14,7 @@
 %define nps_version 1.9.32.6
 
 # gperftools exist only on selected arches
-%ifarch %{ix86} x86_64 ppc ppc64 %{arm}
+%ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
 %global  with_gperftools     1
 %endif
 
@@ -27,6 +27,12 @@
 %global with_systemd 1
 %else
 %global with_systemd 0
+%endif
+
+%if 0%{?fedora} > 22
+%bcond_without mailcap_mimetypes
+%else
+%bcond_with    mailcap_mimetypes
 %endif
 
 Name:              nginx-pagespeed
@@ -78,6 +84,10 @@ Requires:          openssl
 Requires:          pcre
 Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     nginx-pagespeed-filesystem
+%if %{with mailcap_mimetypes}
+Requires:          nginx-mimetypes
+%endif
+
 Provides:          webserver
 Obsoletes:         nginx < 1:1.9.0
 Conflicts:         nginx >= 1:1.9.0
@@ -174,6 +184,7 @@ export DESTDIR=%{buildroot}
     --with-mail \
     --with-mail_ssl_module \
     --with-pcre \
+    --with-pcre-jit \
 %if 0%{?with_gperftools}
     --with-google_perftools_module \
 %endif
@@ -226,6 +237,10 @@ install -p -m 0644 %{SOURCE101} %{SOURCE102} \
 install -p -m 0644 %{SOURCE103} %{SOURCE104} \
     %{buildroot}%{nginx_webroot}
 
+%if %{with mailcap_mimetypes}
+rm %{buildroot}%{_sysconfdir}/nginx/mime.types
+%endif
+
 install -p -D -m 0644 %{_builddir}/nginx-pagespeed/man/nginx.8 \
     %{buildroot}%{_mandir}/man8/nginx.8
 
@@ -276,13 +291,14 @@ setsebool httpd_execmem off 2>/dev/null || :
 %if 0%{?with_systemd}
 %systemd_postun nginx.service
 %else
-if [ $1 -eq 2 ]; then
-    /sbin/service nginx upgrade || :
+if [ $1 -ge 1 ]; then
+    /usr/bin/nginx-upgrade >/dev/null 2>&1 || :
 fi
 %endif
 
 %files
-%doc LICENSE CHANGES README
+%license LICENSE
+%doc CHANGES README
 %{nginx_datadir}/html/*
 %{_bindir}/nginx-upgrade
 %{_sbindir}/nginx
@@ -304,7 +320,9 @@ fi
 %config(noreplace) %{nginx_confdir}/fastcgi_params.default
 %config(noreplace) %{nginx_confdir}/koi-utf
 %config(noreplace) %{nginx_confdir}/koi-win
+%if ! %{with mailcap_mimetypes}
 %config(noreplace) %{nginx_confdir}/mime.types
+%endif
 %config(noreplace) %{nginx_confdir}/mime.types.default
 %config(noreplace) %{nginx_confdir}/nginx.conf
 %config(noreplace) %{nginx_confdir}/nginx.conf.default
