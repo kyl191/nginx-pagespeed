@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           1%{?dist}
+Release:           2%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -297,7 +297,11 @@ fi
 %endif
 
 %files
+%if 0%{?rhel} || 0%{?fedora} < 21
+%doc LICENSE
+%else
 %license LICENSE
+%endif
 %doc CHANGES README
 %{nginx_datadir}/html/*
 %{_bindir}/nginx-upgrade
@@ -350,6 +354,9 @@ fi
 
 
 %changelog
+* Mon Oct 05 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.5-2
+- Add EPEL6 license workaround
+
 * Fri Oct 02 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.5-1
 - Update to upstream nginx 1.9.5
 
