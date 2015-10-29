@@ -10,7 +10,7 @@
 %global  pagespeed_cachedir  %{_localstatedir}/cache/ngx_pagespeed
 
 
-%define ngx_version 1.9.5
+%define ngx_version 1.9.6
 %define nps_version 1.9.32.6
 
 # gperftools exist only on selected arches
@@ -354,6 +354,9 @@ fi
 
 
 %changelog
+* Thu Oct 29 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.6-1
+- Update to upstream nginx 1.9.6
+
 * Mon Oct 05 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.5-2
 - Add EPEL6 license workaround
 
