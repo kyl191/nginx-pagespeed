@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           2%{?dist}
+Release:           3%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -354,6 +354,12 @@ fi
 
 
 %changelog
+* Thu Oct 29 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.6-3
+- Fix bad build number by releasing a new version
+
+* Thu Oct 29 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.6-2
+- Errornous build, didn't reset build number when changing to 1.9.6
+
 * Thu Oct 29 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.6-1
 - Update to upstream nginx 1.9.6
 
