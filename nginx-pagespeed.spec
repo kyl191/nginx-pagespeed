@@ -11,7 +11,7 @@
 
 
 %define ngx_version 1.9.9
-%define nps_version 1.9.32.10
+%define nps_version 1.9.32.11
 
 # gperftools exist only on selected arches
 %ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           1%{?dist}
+Release:           2%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -297,11 +297,8 @@ fi
 %endif
 
 %files
-%if 0%{?rhel} || 0%{?fedora} < 21
-%doc LICENSE
-%else
+%{!?_licensedir:%global license %doc}
 %license LICENSE
-%endif
 %doc CHANGES README
 %{nginx_datadir}/html/*
 %{_bindir}/nginx-upgrade
@@ -354,6 +351,10 @@ fi
 
 
 %changelog
+* Thu Dec 10 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-2
+- Update to upstream ngx_pagespeed 1.9.32.11
+- Clean up spec
+
 * Thu Dec 10 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-1
 - Update to upstream nginx 1.9.9
 
