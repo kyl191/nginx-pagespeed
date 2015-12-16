@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           3%{?dist}
+Release:           4%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -89,8 +89,8 @@ Requires:          nginx-mimetypes
 %endif
 
 Provides:          webserver
+Provides:          nginx = 1:%{ngx_version}
 Obsoletes:         nginx < 1:1.9.0
-Conflicts:         nginx >= 1:1.9.0
 Conflicts:         nginx-mainline
 Conflicts:         nginx-stable-pagespeed
 
@@ -115,7 +115,7 @@ Group:             System Environment/Daemons
 Summary:           The basic directory layout for the Nginx server
 BuildArch:         noarch
 Requires(pre):     shadow-utils
-Provides:          nginx-filesystem
+Provides:          nginx-filesystem = %{ngx_version}
 Obsoletes:         nginx-filesystem < 1:1.9.0
 
 %description filesystem
