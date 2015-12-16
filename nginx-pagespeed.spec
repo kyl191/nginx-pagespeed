@@ -76,6 +76,10 @@ BuildRequires:     pcre-devel
 BuildRequires:     perl-devel
 BuildRequires:     perl(ExtUtils::Embed)
 BuildRequires:     zlib-devel
+%if 0%{?rhel} == 6
+BuildRequires:     devtoolset-2-gcc-c++
+BuildRequires:     devtoolset-2-binutils
+%endif
 
 Requires:          nginx-pagespeed-filesystem = %{epoch}:%{version}-%{release}
 Requires:          GeoIP
@@ -139,6 +143,9 @@ mv psol ngx_pagespeed-release-%{nps_version}-beta/
 # to error out.  This is is also the reason for the DESTDIR environment
 # variable.
 export DESTDIR=%{buildroot}
+%if 0%{?rhel} == 6
+export PS_NGX_EXTRA_FLAGS="--with-cc=/opt/rh/devtoolset-2/root/usr/bin/gcc"
+%endif
 ./configure \
     --prefix=%{nginx_datadir} \
     --sbin-path=%{_sbindir}/nginx \
@@ -190,7 +197,7 @@ export DESTDIR=%{buildroot}
 %endif
     --with-debug \
     --with-stream \
-    --add-module=ngx_pagespeed-release-%{nps_version}-beta \
+    --add-module=ngx_pagespeed-release-%{nps_version}-beta ${PS_NGX_EXTRA_FLAGS} \
     --with-cc-opt="%{optflags} $(pcre-config --cflags) -D_GLIBCXX_USE_CXX11_ABI=0" \
     --with-ld-opt="$RPM_LD_FLAGS -Wl,-E" # so the perl module finds its symbols
 
@@ -351,6 +358,10 @@ fi
 
 
 %changelog
+* Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-4
+- Update spec provides so dnf/yum don't attempt to replace nginx-pagespeed with nginx
+- Require gcc-4.8 on centos 6 as per https://developers.google.com/speed/pagespeed/module/build_ngx_pagespeed_from_source
+
 * Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-3
 - Update to upstream ngx_pagespeed 1.10.33.1
 
