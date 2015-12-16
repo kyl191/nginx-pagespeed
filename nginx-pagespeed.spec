@@ -351,7 +351,7 @@ fi
 
 
 %changelog
-* Thu Dec 10 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-3
+* Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-3
 - Update to upstream ngx_pagespeed 1.10.33.1
 
 * Thu Dec 10 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-2
