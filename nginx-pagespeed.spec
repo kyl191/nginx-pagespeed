@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           4%{?dist}
+Release:           5%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -94,7 +94,6 @@ Requires:          nginx-mimetypes
 
 Provides:          webserver
 Provides:          nginx = 1:%{ngx_version}
-Obsoletes:         nginx < 1:1.9.0
 Conflicts:         nginx-mainline
 Conflicts:         nginx-stable-pagespeed
 
@@ -120,7 +119,6 @@ Summary:           The basic directory layout for the Nginx server
 BuildArch:         noarch
 Requires(pre):     shadow-utils
 Provides:          nginx-filesystem = %{ngx_version}
-Obsoletes:         nginx-filesystem < 1:1.9.0
 
 %description filesystem
 The nginx-filesystem package contains the basic directory layout
@@ -358,6 +356,9 @@ fi
 
 
 %changelog
+* Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-5
+- Remove obsolete declarations so dnf/yum don't attempt to replace nginx-pagespeed with nginx
+
 * Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-4
 - Update spec provides so dnf/yum don't attempt to replace nginx-pagespeed with nginx
 - Require gcc-4.8 on centos 6 as per https://developers.google.com/speed/pagespeed/module/build_ngx_pagespeed_from_source
