@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           5%{?dist}
+Release:           6%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -94,6 +94,7 @@ Requires:          nginx-mimetypes
 
 Provides:          webserver
 Provides:          nginx = 1:%{ngx_version}
+Obsoletes:         nginx < 1:1.9.0
 Conflicts:         nginx-mainline
 Conflicts:         nginx-stable-pagespeed
 
@@ -356,6 +357,9 @@ fi
 
 
 %changelog
+* Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-6
+- Restore obsolete declarations - yum/dnf seemingly can't do dnf install nginx and get nginx-pagespeed
+
 * Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-5
 - Remove obsolete declarations so dnf/yum don't attempt to replace nginx-pagespeed with nginx
 
