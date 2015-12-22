@@ -11,7 +11,7 @@
 
 
 %define ngx_version 1.9.9
-%define nps_version 1.10.33.1
+%define nps_version 1.10.33.2
 
 # gperftools exist only on selected arches
 %ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
@@ -38,7 +38,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           %{ngx_version}
-Release:           6%{?dist}
+Release:           7%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -357,6 +357,9 @@ fi
 
 
 %changelog
+* Mon Dec 21 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-7
+- Update to upstream ngx_pagespeed 1.10.33.2
+
 * Wed Dec 16 2015 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.9-6
 - Restore obsolete declarations - yum/dnf seemingly can't do dnf install nginx and get nginx-pagespeed
 
