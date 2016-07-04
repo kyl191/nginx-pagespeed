@@ -37,7 +37,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           1.11.1
-Release:           1%{?dist}
+Release:           2%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Mon Jul 04 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.1-2
+- Rebuild on CircleCI to check everything is good
+
 * Mon Jul 04 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.1-1
 - Update to upstream nginx 1.11.1
 
