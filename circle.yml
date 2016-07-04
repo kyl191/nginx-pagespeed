@@ -12,7 +12,7 @@ checkout:
 dependencies:
   pre:
     - sudo apt-get update; sudo apt-get install rpm
-    - go get github.com/aktau/github-release
+    - go get github.com/itchio/gothub
     - pip3 install requests
 
 test:
