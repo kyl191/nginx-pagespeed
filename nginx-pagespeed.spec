@@ -10,7 +10,6 @@
 %global  pagespeed_cachedir  %{_localstatedir}/cache/ngx_pagespeed
 
 
-%define ngx_version 1.9.15
 %define nps_version 1.11.33.0
 
 # gperftools exist only on selected arches
@@ -37,7 +36,7 @@
 
 Name:              nginx-pagespeed
 Epoch:             1
-Version:           %{ngx_version}
+Version:           1.11.0
 Release:           1%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
@@ -47,8 +46,8 @@ Group:             System Environment/Daemons
 License:           BSD
 URL:               http://nginx.org/
 
-Source0:           http://nginx.org/download/nginx-%{ngx_version}.tar.gz
-Source1:           http://nginx.org/download/nginx-%{ngx_version}.tar.gz.asc
+Source0:           http://nginx.org/download/nginx-%{version}.tar.gz
+Source1:           http://nginx.org/download/nginx-%{version}.tar.gz.asc
 Source2:           https://github.com/pagespeed/ngx_pagespeed/archive/release-%{nps_version}-beta.zip
 Source3:           https://dl.google.com/dl/page-speed/psol/%{nps_version}.tar.gz
 Source10:          nginx.service
@@ -93,7 +92,7 @@ Requires:          nginx-mimetypes
 %endif
 
 Provides:          webserver
-Provides:          nginx = 1:%{ngx_version}
+Provides:          nginx = 1:%{version}
 Obsoletes:         nginx < 1:1.9.0
 Conflicts:         nginx-mainline
 Conflicts:         nginx-stable-pagespeed
@@ -119,7 +118,7 @@ Group:             System Environment/Daemons
 Summary:           The basic directory layout for the Nginx server
 BuildArch:         noarch
 Requires(pre):     shadow-utils
-Provides:          nginx-filesystem = %{ngx_version}
+Provides:          nginx-filesystem = %{version}
 
 %description filesystem
 The nginx-filesystem package contains the basic directory layout
@@ -129,8 +128,8 @@ directories. This installs the mainline version of nginx.
 
 %prep
 %setup -n nginx-pagespeed -c -q
-mv nginx-%{ngx_version}/* .
-rmdir nginx-%{ngx_version}
+mv nginx-%{version}/* .
+rmdir nginx-%{version}
 %setup -n nginx-pagespeed -T -D -a 2 -q
 %setup -n nginx-pagespeed -T -D -a 3 -q
 mv psol ngx_pagespeed-release-%{nps_version}-beta/
@@ -357,6 +356,9 @@ fi
 
 
 %changelog
+* Mon Jul 04 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.0-1
+- Update to upstream nginx 1.11.0
+
 * Wed Apr 20 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.9.15-1
 - Update to upstream nginx 1.9.15
 
