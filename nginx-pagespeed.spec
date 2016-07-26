@@ -37,7 +37,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           1.11.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -195,6 +195,7 @@ export PS_NGX_EXTRA_FLAGS="--with-cc=/opt/rh/devtoolset-2/root/usr/bin/gcc"
 %endif
     --with-debug \
     --with-stream \
+    --with-stream_ssl_module \
     --add-module=ngx_pagespeed-release-%{nps_version}-beta ${PS_NGX_EXTRA_FLAGS} \
     --with-cc-opt="%{optflags} $(pcre-config --cflags) -D_GLIBCXX_USE_CXX11_ABI=0" \
     --with-ld-opt="$RPM_LD_FLAGS -Wl,-E" # so the perl module finds its symbols
@@ -356,6 +357,9 @@ fi
 
 
 %changelog
+* Tue Jul 26 2016 kyl191 <lantea@kyl191.net> - 1:1.11.3-2
+- Build stream_ssl_module as well
+
 * Tue Jul 26 2016 kyl191 <lantea@kyl191.net> - 1:1.11.3-1
 - Update to upstream nginx 1.11.3
 
