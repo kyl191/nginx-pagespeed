@@ -36,7 +36,7 @@
 
 Name:              nginx-pagespeed
 Epoch:             1
-Version:           1.11.2
+Version:           1.11.3
 Release:           1%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Tue Jul 26 2016 kyl191 <lantea@kyl191.net> - 1:1.11.3-1
+- Update to upstream nginx 1.11.3
+
 * Tue Jul 05 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.2-1
 - Update to upstream nginx 1.11.2
 
