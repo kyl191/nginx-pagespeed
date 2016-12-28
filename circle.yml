@@ -5,7 +5,7 @@ checkout:
   post:
     - export NGINX_VERSION=$(grep Version ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^Version:[ ]*//') && wget -nv -O SOURCES/nginx-${NGINX_VERSION}.tar.gz http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
     - export NGINX_VERSION=$(grep Version ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^Version:[ ]*//') && wget -nv -O SOURCES/nginx-$NGINX_VERSION.tar.gz.asc http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc
-    - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/release-${NPS_VERSION}-beta.zip https://github.com/pagespeed/ngx_pagespeed/archive/release-${NPS_VERSION}-beta.zip
+    - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/release-${NPS_VERSION}-beta.zip https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}-beta.zip
     - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/${NPS_VERSION}.tar.gz https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}.tar.gz
 
 
