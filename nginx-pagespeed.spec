@@ -46,10 +46,11 @@ Group:             System Environment/Daemons
 License:           BSD
 URL:               http://nginx.org/
 
-Source0:           http://nginx.org/download/nginx-%{version}.tar.gz
-Source1:           http://nginx.org/download/nginx-%{version}.tar.gz.asc
-Source2:           https://github.com/pagespeed/ngx_pagespeed/archive/release-%{nps_version}-beta.zip
-Source3:           https://dl.google.com/dl/page-speed/psol/%{nps_version}.tar.gz
+Source0:           https://nginx.org/download/nginx-%{version}.tar.gz
+Source1:           https://nginx.org/download/nginx-%{version}.tar.gz.asc
+Source2:           https://github.com/pagespeed/ngx_pagespeed/archive/v%{nps_version}-beta.zip
+Source3:           https://dl.google.com/dl/page-speed/psol/%{nps_version}-x64.tar.gz
+Source4:           https://dl.google.com/dl/page-speed/psol/%{nps_version}-ia32.tar.gz
 Source10:          nginx.service
 Source11:          nginx.logrotate
 Source12:          nginx.conf
@@ -131,7 +132,11 @@ directories. This installs the mainline version of nginx.
 mv nginx-%{version}/* .
 rmdir nginx-%{version}
 %setup -n nginx-pagespeed -T -D -a 2 -q
+%if "%{_arch}" == "x86_64"
 %setup -n nginx-pagespeed -T -D -a 3 -q
+%else
+%setup -n nginx-pagespeed -T -D -a 4 -q
+%endif
 mv psol ngx_pagespeed-release-%{nps_version}-beta/
 
 
