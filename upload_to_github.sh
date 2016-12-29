@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -x
-source srpm
+srpm_filename=$(ls $CIRCLE_ARTIFACTS/*.src.rpm)
+srpm_version=$(python -c "import re; print(re.findall('([0-9]+.[0-9]+.[0-9]+-[0-9]+)', '${srpm_filename}')[0])")
 git tag ${CIRCLE_PROJECT_REPONAME}-${srpm_version}
 git push --tags
 sleep 2

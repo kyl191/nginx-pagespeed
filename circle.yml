@@ -1,14 +1,6 @@
 machine:
   python:
     version: 3.5.1
-checkout:
-  post:
-    - export NGINX_VERSION=$(grep Version ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^Version:[ ]*//') && wget -nv -O SOURCES/nginx-${NGINX_VERSION}.tar.gz http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz
-    - export NGINX_VERSION=$(grep Version ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^Version:[ ]*//') && wget -nv -O SOURCES/nginx-$NGINX_VERSION.tar.gz.asc http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz.asc
-    - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/release-${NPS_VERSION}-beta.zip https://github.com/pagespeed/ngx_pagespeed/archive/v${NPS_VERSION}-beta.zip
-    - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/${NPS_VERSION}-x64.tar.gz https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}-x64.tar.gz
-    - export NPS_VERSION=$(grep "%define nps_version" ${CIRCLE_PROJECT_REPONAME}.spec|sed 's/^%define nps_version[ ]*//') && wget -nv -O SOURCES/${NPS_VERSION}-ia32.tar.gz https://dl.google.com/dl/page-speed/psol/${NPS_VERSION}-ia32.tar.gz
-
 
 dependencies:
   pre:
@@ -16,12 +8,12 @@ dependencies:
     - go get github.com/itchio/gothub
     - pip3 install requests
 
-test:
+compile:
+  pre:
+    - python3 download_sources.py
   override:
     - rpmbuild -bs --define "_topdir $(pwd)" ${CIRCLE_PROJECT_REPONAME}.spec
   post:
     - mv SRPMS/*.src.rpm $CIRCLE_ARTIFACTS/
-    - echo "export srpm_filename=$(ls $CIRCLE_ARTIFACTS/*.src.rpm)" > srpm
-    - source srpm && echo "export srpm_version=$(python -c "import re; print(re.findall('([0-9]+.[0-9]+.[0-9]+-[0-9]+)', '${srpm_filename}')[0])")" >> srpm
     - bash upload_to_github.sh
-    - source srpm && python3 copr_build.py ${srpm_filename}
+    - python3 copr_build.py
