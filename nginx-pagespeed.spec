@@ -10,7 +10,7 @@
 %global  pagespeed_cachedir  %{_localstatedir}/cache/ngx_pagespeed
 
 
-%define nps_version 1.12.34.1
+%define nps_version 1.12.34.2
 
 # gperftools exist only on selected arches
 %ifarch %{ix86} x86_64 ppc ppc64 %{arm} aarch64
@@ -36,8 +36,8 @@
 
 Name:              nginx-pagespeed
 Epoch:             1
-Version:           1.11.7
-Release:           3%{?dist}
+Version:           1.11.8
+Release:           1%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -361,6 +361,10 @@ fi
 
 
 %changelog
+* Thu Dec 29 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.8-1
+- Update to upstream nginx 1.11.8
+- Update to upstream ngx-pagespeed 1.12.34.2
+
 * Thu Dec 29 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.7-3
 - Remove debug building to fix PSOL Debug not being available
 
