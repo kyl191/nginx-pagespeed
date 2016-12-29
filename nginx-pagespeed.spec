@@ -37,7 +37,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           1.11.7
-Release:           1%{?dist}
+Release:           2%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -137,7 +137,7 @@ rmdir nginx-%{version}
 %else
 %setup -n nginx-pagespeed -T -D -a 4 -q
 %endif
-mv psol ngx_pagespeed-release-%{nps_version}-beta/
+mv psol ngx_pagespeed-%{nps_version}-beta/
 
 
 %build
@@ -201,7 +201,7 @@ export PS_NGX_EXTRA_FLAGS="--with-cc=/opt/rh/devtoolset-2/root/usr/bin/gcc"
     --with-debug \
     --with-stream \
     --with-stream_ssl_module \
-    --add-module=ngx_pagespeed-release-%{nps_version}-beta ${PS_NGX_EXTRA_FLAGS} \
+    --add-module=ngx_pagespeed-%{nps_version}-beta ${PS_NGX_EXTRA_FLAGS} \
     --with-cc-opt="%{optflags} $(pcre-config --cflags) -D_GLIBCXX_USE_CXX11_ABI=0" \
     --with-ld-opt="$RPM_LD_FLAGS -Wl,-E" # so the perl module finds its symbols
 
@@ -362,6 +362,9 @@ fi
 
 
 %changelog
+* Thu Dec 29 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.7-2
+- Fix ngx_pagespeed's changed file extraction path
+
 * Wed Dec 28 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.7-1
 - Update to upstream nginx 1.11.7
 - Update to upstream ngx-pagespeed 1.12.34.1
