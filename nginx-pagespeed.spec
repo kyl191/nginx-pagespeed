@@ -37,7 +37,7 @@
 Name:              nginx-pagespeed
 Epoch:             1
 Version:           1.11.7
-Release:           2%{?dist}
+Release:           3%{?dist}
 
 Summary:           A high performance web server and reverse proxy server
 Group:             System Environment/Daemons
@@ -198,7 +198,6 @@ export PS_NGX_EXTRA_FLAGS="--with-cc=/opt/rh/devtoolset-2/root/usr/bin/gcc"
 %if 0%{?with_gperftools}
     --with-google_perftools_module \
 %endif
-    --with-debug \
     --with-stream \
     --with-stream_ssl_module \
     --add-module=ngx_pagespeed-%{nps_version}-beta ${PS_NGX_EXTRA_FLAGS} \
@@ -362,6 +361,9 @@ fi
 
 
 %changelog
+* Thu Dec 29 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.7-3
+- Remove debug building to fix PSOL Debug not being available
+
 * Thu Dec 29 2016 Kyle Lexmond <fedora@kyl191.net> - 1:1.11.7-2
 - Fix ngx_pagespeed's changed file extraction path
 
