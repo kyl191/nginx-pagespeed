@@ -17,3 +17,7 @@ compile:
     - mv SRPMS/*.src.rpm $CIRCLE_ARTIFACTS/
     - bash upload_to_github.sh
     - python3 copr_build.py
+
+test:
+  override:
+    - /bin/true
